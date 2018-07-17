@@ -1,8 +1,7 @@
 ﻿using EmployeeOrganizer.Model;
 using EmployeeOrganizer.UI.Data;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace EmployeeOrganizer.UI.ViewModel
 {
@@ -18,9 +17,9 @@ namespace EmployeeOrganizer.UI.ViewModel
         }
         public ObservableCollection<Employee> Employees { get; set; }
 
-        public void Load()
+        public async Task LoadAsync()
         {
-            var eployees = _friendDataService.GetAll();
+            var eployees = await _friendDataService.GetAllAsync();
             Employees.Clear();
             foreach (var employee in eployees)
             {

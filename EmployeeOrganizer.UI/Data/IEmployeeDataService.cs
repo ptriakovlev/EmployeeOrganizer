@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using EmployeeOrganizer.Model;
+using System.Threading.Tasks;
 
 namespace EmployeeOrganizer.UI.Data
 {
     public interface IEmployeeDataService
     {
-        IEnumerable<Employee> GetAll();
+        Task<List<Employee>> GetAllAsync();
     }
 }

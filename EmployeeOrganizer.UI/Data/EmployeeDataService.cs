@@ -1,17 +1,29 @@
-﻿using EmployeeOrganizer.Model;
+﻿using EmployeeOrganizer.Access;
+using EmployeeOrganizer.Model;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EmployeeOrganizer.UI.Data
 {
     public class EmployeeDataService : IEmployeeDataService
     {
-        public IEnumerable<Employee> GetAll()
+
+        private Func<EmployeeOrganizerDbContext> _contextCreator;
+
+        public EmployeeDataService(Func<EmployeeOrganizerDbContext> contextCreator)
         {
-            // TODO: Load data from real database
-            yield return new Employee { FirstName = "Thomas", LastName = "Huber" };
-            yield return new Employee { FirstName = "Andreas", LastName = "Boehler" };
-            yield return new Employee { FirstName = "Julia", LastName = "Huber" };
-            yield return new Employee { FirstName = "Chrissi", LastName = "Egin" };
+            _contextCreator = contextCreator;
+        }
+
+        public async Task<List<Employee>> GetAllAsync()
+        {
+            using (var ctx = _contextCreator())
+            {
+                return await ctx.Employees.AsNoTracking().ToListAsync();
+            }
 
         }
     }
