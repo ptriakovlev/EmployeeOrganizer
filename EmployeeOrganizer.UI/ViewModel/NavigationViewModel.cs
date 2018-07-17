@@ -4,13 +4,12 @@ using System.Linq;
 using EmployeeOrganizer.Model;
 using EmployeeOrganizer.UI.Data;
 
-namespace FriendOrganizer.UI.ViewModel
+namespace EmployeeOrganizer.UI.ViewModel
 {
-    public class NavigationViewModel
+    public class NavigationViewModel : INavigationViewModel
     {
-        private IEmployeeLookupDataService _employeeLookupService;
 
-        public ObservableCollection<LookupItem> Employees;
+        private IEmployeeLookupDataService _employeeLookupService;
 
         public NavigationViewModel(IEmployeeLookupDataService employeeLookupService)
         {
@@ -28,6 +27,7 @@ namespace FriendOrganizer.UI.ViewModel
             }
         }
 
+        public ObservableCollection<LookupItem> Employees { get; }
 
 
     }
