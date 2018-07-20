@@ -18,13 +18,23 @@ namespace EmployeeOrganizer.UI.Data
             _contextCreator = contextCreator;
         }
 
-        public async Task<List<Employee>> GetAllAsync()
+        public async Task<Employee> GetByIdAsync(int employeeId)
         {
             using (var ctx = _contextCreator())
             {
-                return await ctx.Employees.AsNoTracking().ToListAsync();
+                return await ctx.Employees.AsNoTracking().SingleAsync(f => f.Id == employeeId);
             }
 
+        }
+
+        public async Task SaveAsync(Employee employee)
+        {
+            using (var ctx = _contextCreator())
+            {
+                ctx.Employees.Attach(employee);
+                ctx.Entry(employee).State = EntityState.Modified;
+                await ctx.SaveChangesAsync();
+            }
         }
     }
 }

@@ -10,9 +10,11 @@ namespace EmployeeOrganizer.UI.ViewModel
     {
         public INavigationViewModel NavigationViewModel { get; }
 
-        MainViewModel(INavigationViewModel navigationViewModel)
+        MainViewModel(INavigationViewModel navigationViewModel,
+            IEmployeeDetailViewModel employeeDetailViewModel)
         {
             NavigationViewModel = navigationViewModel;
+            EmployeeDetailViewModel = employeeDetailViewModel;
         }
 
 
@@ -21,7 +23,9 @@ namespace EmployeeOrganizer.UI.ViewModel
             await NavigationViewModel.LoadAsync();
         }
 
-  
+    public IEmployeeDetailViewModel EmployeeDetailViewModel { get; }
+
+
     }
 
     
